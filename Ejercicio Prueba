@@ -1,0 +1,80 @@
+class Producto:
+    def __init__(self, nombre, precio):
+        self.__nombre = nombre
+        self.__precio = precio
+    
+    def getNombre(self):
+        return self.__nombre
+    def getPrecio(self):
+        return self.__precio
+    
+    def setNombre(self, nuevoNombre):
+        self.__nombre = nuevoNombre
+    def setPrecio(self, nuevoPrecio):
+        self.__precio = nuevoPrecio
+
+    def mostrar(self):
+        print(f"Producto:", {self.getNombre()}) 
+        print(f"Precio:", {self.getPrecio()})
+    
+class Bebida(Producto):
+    def __init__(self, nombre, precio, catergoria):
+        super().__init__(nombre, precio)
+        self.__categoria = catergoria
+    def getCategoria(self):
+        return self.__categoria
+    def setCategoria(self, nuevaCategoria):
+        self.__categoria = nuevaCategoria
+    def mostrarInfo(self):
+        print(f"Nombre bebida: {self.getNombre()}")
+        print(f"Precio: {self.getPrecio()}")
+        print(f"Categoria: {self.getCategoria()}")
+
+inventario_bebidas = {}
+
+id_bebida = 1
+
+while True:
+    print("==== Botilleria ====")
+    print("1. Ingresar tu bebida")
+    print("2. Ver productos")
+    print("3. Buscar producto")
+    print("4. Editar bebida")
+    print("6. Salir")
+
+    opcion = input("Selecciona una opcion (1 a 3)")
+
+    if opcion == "1":
+        nombre = input("Ingresa tu bebida:")
+        precio = int(input("Precio:"))
+        categoria = input("Categoria: ")
+
+        objetoBebida = Bebida(nombre, precio, categoria)
+        inventario_bebidas[id_bebida] = objetoBebida
+
+        id_bebida = id_bebida + 1
+        print("Bebida registrada correctamente")
+
+    elif opcion == "2":
+        if len(inventario_bebidas) == 0:
+           print("No existen bebidas registradas")
+        else:
+           for clave in inventario_bebidas:
+               inventario_bebidas[clave].mostrarInfo()
+
+    elif opcion == "3":
+        nombre_buscar = input("Ingresa el nombre de la bebida que deseas buscar")
+        objetoBebida = inventario_bebidas[nombre_buscar]
+
+    elif opcion == "4":
+        nombre_a_editar = input("Ingresa el nombre de la bebida que deseas editar")
+        if nombre_editar = inventario_bebidas[nombre_editar]
+        print(f"Datos actualizados: {objeto_ed}")
+
+    
+    elif opcion == "6":
+         print("Programa finalizado")
+         break
+    else:
+        print("Opcion no valida")
+               
