@@ -1,0 +1,127 @@
+class Producto:
+    def __init__(self, nombre, precio):
+        self.__nombre = nombre
+        self.__precio = precio
+
+    def getNombre(self):
+        return self.__nombre
+    def getPrecio(self):
+        return self.__precio
+
+    def setNombre(self, nuevoNombre):
+        self.__nombre = nuevoNombre
+    def setPrecio(self, nuevoPrecio):
+        self.__precio = nuevoPrecio
+
+
+class Bebida(Producto):
+    def __init__(self, nombre, precio, categoria):
+        super().__init__(nombre, precio)
+        self.__categoria = categoria
+
+    def getCategoria(self):
+        return self.__categoria
+    def setCategoria(self, nuevaCategoria):
+        self.__categoria = nuevaCategoria
+
+    def mostrarInfo(self):
+        print(f"Nombre bebida: {self.getNombre()}")
+        print(f"Precio: ${self.getPrecio()}")
+        print(f"Categoría: {self.getCategoria()}")
+        print("-" * 20)
+
+
+# Cambiamos el diccionario por una lista
+inventario_bebidas = []
+
+while True:
+    print("\n==== Botilleria ====")
+    print("1. Ingresar tu bebida")
+    print("2. Ver productos")
+    print("3. Buscar producto")
+    print("4. Editar bebida")
+    print("5. Eliminar bebida")  # Añadida opción 5
+    print("6. Salir")
+
+    opcion = input("Selecciona una opcion (1 a 6): ")
+
+    # 1. INGRESAR BEBIDA
+    if opcion == "1":
+        nombre = input("Ingresa el nombre de la bebida: ")
+        precio = int(input("Precio: "))
+        categoria = input("Categoria: ")
+
+        objetoBebida = Bebida(nombre, precio, categoria)
+        inventario_bebidas.append(objetoBebida)  # Agrega a la lista
+        print("¡Bebida registrada correctamente!")
+
+    # 2. VER PRODUCTOS
+    elif opcion == "2":
+        if len(inventario_bebidas) == 0:
+            print("No existen bebidas registradas.")
+        else:
+            print("\n--- Lista de Bebidas ---")
+            for bebida in inventario_bebidas:
+                bebida.mostrarInfo()
+
+    # 3. BUSCAR PRODUCTO
+    elif opcion == "3":
+        nombre_buscar = input("Ingresa el nombre de la bebida que deseas buscar: ")
+        encontrado = False
+        
+        for bebida in inventario_bebidas:
+            if bebida.getNombre().lower() == nombre_buscar.lower():
+                print("\n--- Producto Encontrado ---")
+                bebida.mostrarInfo()
+                encontrado = True
+                break  # Sale del ciclo al encontrarlo
+        
+        if not encontrado:
+            print("El producto no se encuentra en el inventario.")
+
+    # 4. EDITAR BEBIDA
+    elif opcion == "4":
+        nombre_a_editar = input("Ingresa el nombre de la bebida que deseas editar: ")
+        encontrado = False
+
+        for bebida in inventario_bebidas:
+            if bebida.getNombre().lower() == nombre_a_editar.lower():
+                print("\n--- Bebida encontrada. Ingrese los nuevos datos ---")
+                nuevo_nombre = input("Nuevo nombre: ")
+                nuevo_precio = int(input("Nuevo precio: "))
+                nueva_categoria = input("Nueva categoría: ")
+                
+                # Usamos los métodos SET para modificar los atributos privados
+                bebida.setNombre(nuevo_nombre)
+                bebida.setPrecio(nuevo_precio)
+                bebida.setCategoria(nueva_categoria)
+                
+                print("¡Datos actualizados correctamente!")
+                encontrado = True
+                break
+        
+        if not encontrado:
+            print("No se encontró ninguna bebida con ese nombre.")
+
+    # 5. ELIMINAR BEBIDA
+    elif opcion == "5":
+        nombre_a_eliminar = input("Ingresa el nombre de la bebida que deseas eliminar: ")
+        encontrado = False
+
+        for bebida in inventario_bebidas:
+            if bebida.getNombre().lower() == nombre_a_eliminar.lower():
+                inventario_bebidas.remove(bebida)  # Elimina el objeto de la lista
+                print(f"¡La bebida '{nombre_a_eliminar}' fue eliminada con éxito!")
+                encontrado = True
+                break
+        
+        if not encontrado:
+            print("No se encontró ninguna bebida con ese nombre.")
+
+    # 6. SALIR
+    elif opcion == "6":
+        print("Programa finalizado. ¡Hasta pronto!")
+        break
+        
+    else:
+        print("Opción no válida, intenta nuevamente.")
